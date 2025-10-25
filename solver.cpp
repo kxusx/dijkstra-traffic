@@ -1,20 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main(){
-    vector<vector<int>> edges = {{1,11,1}, {1,2,1},{2,3,1},{3,4,1},{5,6,2},{6,7,1},{7,8,1},{8,9,1},{9,19,1},{19,18,2},{18,10,2},{18,17,2},{17,11,1},{11,12,2},{12,13,2},{13,14,2}, {13,21,1},{21,20,2}, {14,15,1}, {20,22,1},{21,22,2}, {5,22,1}, {14,16,1}, {17,16,2} };
-
-    unordered_map<int, vector<pair<int, int>>> graph;
-    for (const auto& edge : edges) {
-        int u = edge[0];
-        int v = edge[1];
-        int w = edge[2];
-        graph[u].emplace_back(v, w);
-        graph[v].emplace_back(u, w); 
-    }
-
-    int src=1;
-}
 
 unordered_map<int, int> dijkstra(int src, unordered_map<int, vector<pair<int, int>>>& graph) {
     unordered_map<int, int> dist;
@@ -39,4 +25,28 @@ unordered_map<int, int> dijkstra(int src, unordered_map<int, vector<pair<int, in
     }
 
   return dist;
+}
+
+int main(){
+    vector<vector<int>> edges = {{1,11,1}, {1,2,1},{2,3,1},{2,21,1},{3,4,1},{3,8,2},{4,5,1},{5,6,2},{6,7,1},{7,8,1},{8,9,1},{9,19,1},{19,18,2},{9,10,1},{10,11,1},{18,10,2},{18,17,2},{17,11,1},{11,12,2},{12,13,2},{13,14,2}, {13,21,1},{21,20,2}, {14,15,1}, {20,22,1},{21,22,2}, {5,22,1}, {14,16,1}, {17,16,2} };
+
+    unordered_map<int, vector<pair<int, int>>> graph;
+    for (const auto& edge : edges) {
+        int u = edge[0];
+        int v = edge[1];
+        int w = edge[2];
+        graph[u].emplace_back(v, w);
+        graph[v].emplace_back(u, w); 
+    }
+
+    int src=1;
+
+    unordered_map<int, int> distances = dijkstra(src, graph);
+
+    vector<int> nodesOfInterest= {6,8,9,15,16,22};
+
+    for (int node : nodesOfInterest) {
+        cout << "Distance from " << src << " to " << node << " is " << distances[node] << endl;
+    }
+
 }
